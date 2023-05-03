@@ -671,7 +671,7 @@ bool Transactions::executePayment(SQLHDBC& hDBC){
 		}
 	}
 
-	string hData = wName + "    " + dName;
+	string hData = wName + "" + dName;
 
 	DbcTools::resetStatement(pmHistoryInsert);
 	DbcTools::bind(pmHistoryInsert,1,cId);
@@ -681,10 +681,11 @@ bool Transactions::executePayment(SQLHDBC& hDBC){
 	DbcTools::bind(pmHistoryInsert,5,wId);
 	DbcTools::bind(pmHistoryInsert,6,hDate);
 	DbcTools::bind(pmHistoryInsert,7,hAmount);
-	char buffer4[24];
+	char buffer4[64];
+	// std::cout << "hdata is :"<<hData.c_str() << std::endl;
 	//strcpy(buffer4,hData.c_str());
 	memcpy(buffer4,hData.c_str(),sizeof(buffer4));
-	DbcTools::bind(pmHistoryInsert,8,24,buffer4);
+	DbcTools::bind(pmHistoryInsert,8,64,buffer4);
 	if(!DbcTools::executePreparedStatement(pmHistoryInsert)){
 		DbcTools::rollback(hDBC);
 		return 0;

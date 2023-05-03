@@ -158,7 +158,7 @@ bool DbcTools::reviewReturn(SQLHANDLE& handle, SQLSMALLINT handleType, SQLRETURN
 
 	SQLGetDiagRec(handleType,handle,1,sql_state_buffer,&native_error, message_text_buffer,4096,&text_length);
 
-	if(SQL_SUCCESS_WITH_INFO == ret){
+	if(SQL_SUCCESS_WITH_INFO == ret || SQL_NO_DATA == ret){
 		if(showError)
 			Log::l2() << Log::tm() << "-info:\n    SQL_SUCCESS_WITH_INFO\n    SQLSTATE: " << (const char*)sql_state_buffer << "\n    NATIVE ERROR: " << native_error  << "\n    MESSAGE TEXT: " << (const char*)message_text_buffer << "\n";
 		else

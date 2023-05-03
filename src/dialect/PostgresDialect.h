@@ -96,7 +96,7 @@ class PostgresDialect : public Dialect {
         "	h_w_id integer,\n"
         "	h_date date,\n"
         "	h_amount decimal(6,2),\n"
-        "	h_data char(24)\n"
+        "	h_data char(64)\n"
         ")",
 
         "CREATE INDEX fk_history_customer ON history "
