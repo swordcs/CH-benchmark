@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 #include "AnalyticalStatistic.h"
-
+#include <iostream>
 using namespace std;
 
 AnalyticalStatistic::AnalyticalStatistic(){
@@ -28,6 +28,7 @@ AnalyticalStatistic::AnalyticalStatistic(){
 void AnalyticalStatistic::addResult(unsigned long long& analyticalResults){
 	for(int i=0; i<22; i++){
 		analyticalResults += executeTPCHSuccessCount[i];
+		cout << "AP Query " << i+1 << " success: " << executeTPCHSuccessCount[i] << endl;
 	}
 }
 

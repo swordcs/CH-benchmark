@@ -38,8 +38,7 @@ class PostgresDialect : public Dialect {
         "	w_state char(2),\n"
         "	w_zip char(9),\n"
         "	w_tax decimal(4,4),\n"
-        "	w_ytd decimal(12,2),\n"
-        "	PRIMARY KEY (w_id)\n"
+        "	w_ytd decimal(12,2)\n"
         ")",
 
         "CREATE TABLE district (\n"
@@ -53,11 +52,8 @@ class PostgresDialect : public Dialect {
         "	d_zip char(9),\n"
         "	d_tax decimal(4,4),\n"
         "	d_ytd decimal(12,2),\n"
-        "	d_next_o_id integer,\n"
-        "	PRIMARY KEY (d_w_id, d_id) \n"
+        "	d_next_o_id integer\n"
         ")",
-
-        "CREATE INDEX fk_district_warehouse ON district (d_w_id ASC)",
 
         "CREATE TABLE customer (\n"
         "	c_id smallint,\n"
@@ -81,12 +77,8 @@ class PostgresDialect : public Dialect {
         "	c_payment_cnt smallint,\n"
         "	c_delivery_cnt smallint,\n"
         "	c_data text,\n"
-        "	c_n_nationkey integer,\n"
-        "	PRIMARY KEY(c_w_id, c_d_id, c_id)\n"
+        "	c_n_nationkey integer\n"
         ")",
-
-        "CREATE INDEX fk_customer_district ON customer"
-        "(c_w_id ASC, c_d_id ASC)",
 
         "CREATE TABLE history (\n"
         "	h_c_id smallint,\n"
@@ -99,17 +91,11 @@ class PostgresDialect : public Dialect {
         "	h_data char(64)\n"
         ")",
 
-        "CREATE INDEX fk_history_customer ON history "
-        "(h_c_w_id ASC, h_c_d_id ASC, h_c_id ASC)",
-
-        "CREATE INDEX fk_history_district ON history "
-        "(h_w_id ASC, h_d_id ASC)",
 
         "CREATE TABLE neworder (\n"
         "	no_o_id integer,\n"
         "	no_d_id smallint,\n"
-        "	no_w_id integer,\n"
-        "	PRIMARY KEY (no_w_id, no_d_id, no_o_id)\n"
+        "	no_w_id integer\n"
         ")",
 
         "CREATE TABLE orders (\n"
@@ -120,12 +106,9 @@ class PostgresDialect : public Dialect {
         "	o_entry_d date,\n"
         "	o_carrier_id smallint,\n"
         "	o_ol_cnt smallint,\n"
-        "	o_all_local smallint,\n"
-        "	PRIMARY KEY (o_w_id, o_d_id, o_id)\n"
+        "	o_all_local smallint\n"
         ")",
 
-        "CREATE INDEX fk_order_customer ON orders "
-        "(o_w_id ASC, o_d_id ASC, o_c_id ASC)",
 
         "CREATE TABLE orderline (\n"
         "	ol_o_id integer,\n"
@@ -137,23 +120,15 @@ class PostgresDialect : public Dialect {
         "	ol_delivery_d date,\n"
         "	ol_quantity smallint,\n"
         "	ol_amount decimal(6,2),\n"
-        "	ol_dist_info char(24),\n"
-        "	PRIMARY KEY (ol_w_id, ol_d_id, ol_o_id, ol_number)\n"
+        "	ol_dist_info char(24)\n"
         ")",
-
-        "CREATE INDEX fk_orderline_order ON orderline "
-        "(ol_w_id ASC, ol_d_id ASC, ol_o_id ASC)",
-
-        "CREATE INDEX fk_orderline_stock ON orderline "
-        "(ol_supply_w_id ASC, ol_i_id ASC)",
 
         "CREATE TABLE item (\n"
         "	i_id integer,\n"
         "	i_im_id smallint,\n"
         "	i_name char(24),\n"
         "	i_price decimal(5,2),\n"
-        "	i_data char(50),\n"
-        "	PRIMARY KEY (i_id)\n"
+        "	i_data char(50)\n"
         ")",
 
         "CREATE TABLE stock (\n"
@@ -174,20 +149,14 @@ class PostgresDialect : public Dialect {
         "	s_order_cnt integer,\n"
         "	s_remote_cnt integer,\n"
         "	s_data char(50),\n"
-        "	s_su_suppkey integer,\n"
-        "	PRIMARY KEY (s_w_id, s_i_id)\n"
+        "	s_su_suppkey integer\n"
         ")",
-
-        "CREATE INDEX fk_stock_warehouse ON stock (s_w_id ASC)",
-
-        "CREATE INDEX fk_stock_item ON stock (s_i_id ASC)",
 
         "CREATE TABLE nation (\n"
         "	n_nationkey smallint NOT NULL,\n"
         "	n_name char(25) NOT NULL,\n"
         "	n_regionkey smallint NOT NULL,\n"
-        "	n_comment char(152) NOT NULL,\n"
-        "	PRIMARY KEY (n_nationkey)\n"
+        "	n_comment char(152) NOT NULL\n"
         ")",
 
         "CREATE TABLE supplier (\n"
@@ -197,15 +166,13 @@ class PostgresDialect : public Dialect {
         "	su_nationkey smallint NOT NULL,\n"
         "	su_phone char(15) NOT NULL,\n"
         "	su_acctbal decimal(12,2) NOT NULL,\n"
-        "	su_comment char(101) NOT NULL,\n"
-        "	PRIMARY KEY (su_suppkey)\n"
+        "	su_comment char(101) NOT NULL\n"
         ")",
 
         "CREATE TABLE region (\n"
         "	r_regionkey smallint NOT NULL,\n"
         "	r_name char(55) NOT NULL,\n"
-        "	r_comment char(152) NOT NULL,\n"
-        "	PRIMARY KEY (r_regionkey)\n"
+        "	r_comment char(152) NOT NULL\n"
         ")"};
 
     std::vector<const char*> additionalPreparationStatements = {};

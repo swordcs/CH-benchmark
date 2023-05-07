@@ -27,7 +27,7 @@ TransactionalStatistic::TransactionalStatistic(){
 
 void TransactionalStatistic::addResult(unsigned long long& transcationalResults){
 	transcationalResults += executeTPCCSuccessCount[0];
-	std::cout << "s f : " << executeTPCCSuccessCount[0] << " " << executeTPCCFailCount[0] << std::endl;
+	std::cout << "TP s f : " << executeTPCCSuccessCount[0] << " " << executeTPCCFailCount[0] << std::endl;
 }
 
 void TransactionalStatistic::executeTPCCSuccess(int transactionNumber, bool success){
